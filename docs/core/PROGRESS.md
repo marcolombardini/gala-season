@@ -1,6 +1,6 @@
 # Core Feature Progress
 
-## Status: Phase 1 - Completed
+## Status: Phase 2 - Completed
 
 ## Quick Reference
 - Research: `docs/core/RESEARCH.md`
@@ -34,13 +34,23 @@
 ---
 
 ### Phase 2: Models & Validations
-**Status:** Not Started
+**Status:** Completed
 
 #### Tasks Completed
-- (none yet)
+- Created `Organization` model with `has_secure_password`, associations, validations, and slug auto-generation (with collision handling)
+- Created `User` model with `has_secure_password`, associations, and validations
+- Created `Event` model with `belongs_to :organization`, enums (dress_code, status), `published` and `upcoming` scopes, validations
+- Created `Attendance` model with belongs_to associations and uniqueness validation
+- Created `Follow` model with belongs_to associations and uniqueness validation
+- Created `Current` model (`ActiveSupport::CurrentAttributes`) with user and organization attributes
+- Created fixtures: 2 organizations, 2 users, 3 events (published upcoming, published past, draft), 2 attendances, 2 follows
+- Created model tests: 35 tests, 92 assertions, all passing
+- Rubocop clean on all new files
 
 #### Decisions Made
-- (none yet)
+- Slug generation uses `before_validation` on create, parameterizes name, appends counter on collision
+- `upcoming` scope uses Ruby range syntax `where(date: Date.current..)`
+- Fixtures use Rails auto-generated deterministic UUIDs (no explicit IDs)
 
 #### Blockers
 - (none)
@@ -234,6 +244,7 @@
 ### 2026-03-10
 - Phase 1 completed: All 5 database tables created with proper indexes and foreign keys
 - Added bcrypt gem for password hashing support
+- Phase 2 completed: All 6 models created with associations, validations, enums, scopes, and tests (35 tests, 92 assertions)
 
 ---
 
@@ -245,6 +256,22 @@
 - `db/migrate/20260310190302_create_attendances.rb` — new
 - `db/migrate/20260310190307_create_follows.rb` — new
 - `db/schema.rb` — auto-updated
+- `app/models/current.rb` — new
+- `app/models/organization.rb` — new
+- `app/models/user.rb` — new
+- `app/models/event.rb` — new
+- `app/models/attendance.rb` — new
+- `app/models/follow.rb` — new
+- `test/fixtures/organizations.yml` — new
+- `test/fixtures/users.yml` — new
+- `test/fixtures/events.yml` — new
+- `test/fixtures/attendances.yml` — new
+- `test/fixtures/follows.yml` — new
+- `test/models/organization_test.rb` — new
+- `test/models/user_test.rb` — new
+- `test/models/event_test.rb` — new
+- `test/models/attendance_test.rb` — new
+- `test/models/follow_test.rb` — new
 
 ## Architectural Decisions
 (Major technical decisions and rationale)

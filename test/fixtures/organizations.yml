@@ -1,0 +1,25 @@
+charity_org:
+  name: Nashville Charity Foundation
+  slug: nashville-charity-foundation
+  email: info@nashvillecharity.org
+  password_digest: <%= BCrypt::Password.create('password123') %>
+  description: Supporting Nashville communities
+  primary_cause: Education
+  causes:
+    - Education
+    - Health
+  industries:
+    - Nonprofit
+    - Healthcare
+
+arts_foundation:
+  name: Arts for All
+  slug: arts-for-all
+  email: hello@artsforall.org
+  password_digest: <%= BCrypt::Password.create('password123') %>
+  description: Making art accessible
+  primary_cause: Arts & Culture
+  causes:
+    - Arts & Culture
+  industries:
+    - Entertainment

@@ -1,0 +1,24 @@
+alice:
+  first_name: Alice
+  last_name: Johnson
+  email: alice@example.com
+  username: alicej
+  password_digest: <%= BCrypt::Password.create('password123') %>
+  bio: Philanthropist and volunteer
+  city: Nashville
+  state: TN
+  interested_causes:
+    - Education
+    - Health
+  interested_industries:
+    - Nonprofit
+
+bob:
+  first_name: Bob
+  last_name: Smith
+  email: bob@example.com
+  username: bobsmith
+  password_digest: <%= BCrypt::Password.create('password123') %>
+  visibility: true
+  visibility_full_name: false
+  visibility_email: false
