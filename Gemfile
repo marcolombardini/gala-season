@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'bootsnap', require: false
 gem 'image_processing', '~> 1.2'
+gem 'bcrypt', '~> 3.1'
 gem 'pg'
 gem 'puma', '>= 5.0'
 gem 'thruster', require: false
