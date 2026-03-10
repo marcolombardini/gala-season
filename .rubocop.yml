@@ -28,3 +28,10 @@ Metrics/BlockLength:
   Exclude:
     - "config/**/*"
     - "test/**/*"
+
+Metrics/ClassLength:
+  Exclude:
+    - "test/**/*"
+
+Minitest/MultipleAssertions:
+  Max: 12
