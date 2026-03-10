@@ -1,6 +1,6 @@
 # Core Feature Progress
 
-## Status: Phase 3 - Completed
+## Status: Phase 4 - Completed
 
 ## Quick Reference
 - Research: `docs/core/RESEARCH.md`
@@ -81,13 +81,23 @@
 ---
 
 ### Phase 4: Auth Controllers & Routes
-**Status:** Not Started
+**Status:** Completed
 
 #### Tasks Completed
-- (none yet)
+- Created `Users::SessionsController` (new, create, destroy) — sign in/out for users
+- Created `Users::RegistrationsController` (new, create) — sign up for users
+- Created `Organizations::SessionsController` (new, create, destroy) — sign in/out for orgs
+- Created `Organizations::RegistrationsController` (new, create) — sign up for orgs
+- Added namespaced routes for all auth endpoints (users/sign_in, users/sign_up, users/sign_out, organizations/sign_in, organizations/sign_up, organizations/sign_out)
+- Created controller tests: 18 tests, 70 assertions, all passing
+- Rubocop clean on all new files
 
 #### Decisions Made
-- (none yet)
+- Controllers inherit from `InertiaController` (not `ApplicationController` directly)
+- Failed sign-in uses redirect with Inertia errors (not re-render) for cleaner URL handling
+- Failed registration also redirects back with Inertia errors
+- Used `params.expect` (Rails 8 style) instead of `params.require.permit` per rubocop
+- Inertia page names: `Users/Sessions/New`, `Users/Registrations/New`, `Organizations/Sessions/New`, `Organizations/Registrations/New`
 
 #### Blockers
 - (none)
@@ -255,10 +265,20 @@
 - Added bcrypt gem for password hashing support
 - Phase 2 completed: All 6 models created with associations, validations, enums, scopes, and tests (35 tests, 92 assertions)
 - Phase 3 completed: Authentication concern created with dual auth, included in ApplicationController, Inertia shared data wired up (40 tests, 100 assertions)
+- Phase 4 completed: Auth controllers and routes for users and organizations (58 total tests, 170 assertions)
 
 ---
 
 ## Files Changed
+- `app/controllers/users/sessions_controller.rb` — new (user sign in/out)
+- `app/controllers/users/registrations_controller.rb` — new (user sign up)
+- `app/controllers/organizations/sessions_controller.rb` — new (org sign in/out)
+- `app/controllers/organizations/registrations_controller.rb` — new (org sign up)
+- `config/routes.rb` — added namespaced auth routes
+- `test/controllers/users/sessions_controller_test.rb` — new
+- `test/controllers/users/registrations_controller_test.rb` — new
+- `test/controllers/organizations/sessions_controller_test.rb` — new
+- `test/controllers/organizations/registrations_controller_test.rb` — new
 - `app/controllers/concerns/authentication.rb` — new (Authentication concern)
 - `app/controllers/application_controller.rb` — added `include Authentication`
 - `app/controllers/inertia_controller.rb` — wired up `inertia_share` with auth data
