@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+require_relative "../config/boot"
+require "brakeman"
+
+exit Brakeman.run(app_path: ".", print_report: true, pager: !ARGV.delete("--no-pager")).filtered_warnings.length > 0 ? 3 : 0

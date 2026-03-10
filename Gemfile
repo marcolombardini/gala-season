@@ -31,6 +31,7 @@ end
 
 group :development do
   gem 'brakeman', '~> 7.0', require: false
+  gem 'bundler-audit', require: false
   gem 'rubocop', require: false
   gem 'rubocop-minitest', require: false
   gem 'rubocop-performance', require: false
