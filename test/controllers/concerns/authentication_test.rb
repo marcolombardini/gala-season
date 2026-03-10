@@ -19,11 +19,9 @@ end
 
 class AuthenticationConcernTest < ActiveSupport::TestCase
   class DummyController
-    def self.before_action(*)
-    end
+    def self.before_action(*); end
 
-    def self.helper_method(*)
-    end
+    def self.helper_method(*); end
 
     include Authentication
 
