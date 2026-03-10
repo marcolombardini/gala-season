@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   end
 
   get '/events/:id', to: 'events#show', as: :event
+  get '/o/:slug', to: 'organization_profiles#show', as: :organization_profile
 
   root 'home#index'
 end
