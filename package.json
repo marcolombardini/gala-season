@@ -1,4 +1,5 @@
 {
+  "name": "gala-season",
   "private": true,
   "type": "module",
   "devDependencies": {
