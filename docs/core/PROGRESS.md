@@ -1,6 +1,6 @@
 # Core Feature Progress
 
-## Status: Phase 2 - Completed
+## Status: Phase 3 - Completed
 
 ## Quick Reference
 - Research: `docs/core/RESEARCH.md`
@@ -58,13 +58,22 @@
 ---
 
 ### Phase 3: Authentication Concern & Current
-**Status:** Not Started
+**Status:** Completed
 
 #### Tasks Completed
-- (none yet)
+- Created `Authentication` concern with dual auth support (user + organization sessions)
+- Implemented `set_current_auth`, `authenticate!`, `authenticate_user!`, `authenticate_organization!`, `signed_in?`, `current_user`, `current_organization`, `sign_in_user`, `sign_in_organization`, `sign_out`
+- Included `Authentication` in `ApplicationController`
+- Wired up `inertia_share` in `InertiaController` to share current_user and current_organization props
+- Created integration test for unauthenticated requests plus regression coverage for switching auth contexts
+- All 40 tests passing, rubocop clean
 
 #### Decisions Made
-- (none yet)
+- `before_action :set_current_auth` and `helper_method` declarations live in concern's `included` block
+- `sign_in_*` methods call `reset_session` first to prevent session fixation
+- `sign_out` calls `Current.reset` to clear thread-local attributes
+- All auth redirects go to `root_path` for now (no login page yet)
+- Inertia shared data exposes minimal user/org fields (id, name fields, email, username/slug)
 
 #### Blockers
 - (none)
@@ -245,10 +254,15 @@
 - Phase 1 completed: All 5 database tables created with proper indexes and foreign keys
 - Added bcrypt gem for password hashing support
 - Phase 2 completed: All 6 models created with associations, validations, enums, scopes, and tests (35 tests, 92 assertions)
+- Phase 3 completed: Authentication concern created with dual auth, included in ApplicationController, Inertia shared data wired up (40 tests, 100 assertions)
 
 ---
 
 ## Files Changed
+- `app/controllers/concerns/authentication.rb` — new (Authentication concern)
+- `app/controllers/application_controller.rb` — added `include Authentication`
+- `app/controllers/inertia_controller.rb` — wired up `inertia_share` with auth data
+- `test/controllers/concerns/authentication_test.rb` — new (smoke + regression tests)
 - `Gemfile` — added bcrypt gem
 - `db/migrate/20260310190253_create_organizations.rb` — new
 - `db/migrate/20260310190255_create_users.rb` — new
