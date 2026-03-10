@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react'
+import { Link, Head } from '@inertiajs/react'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
@@ -60,7 +60,9 @@ export default function ProfileShow({
   const name = displayName(user)
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8">
+    <>
+      <Head title={displayName(user) ?? user.username} />
+      <div className="mx-auto max-w-7xl px-4 py-8">
       <div className="mb-6">
         <Link
           href="/"
@@ -254,5 +256,6 @@ export default function ProfileShow({
         </>
       )}
     </div>
+    </>
   )
 }

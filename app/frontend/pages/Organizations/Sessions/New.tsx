@@ -1,4 +1,4 @@
-import { useForm, Link, usePage } from '@inertiajs/react'
+import { useForm, Link, usePage, Head } from '@inertiajs/react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -18,7 +18,9 @@ export default function OrganizationSignIn() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
+    <>
+      <Head title="Organization Sign In" />
+      <div className="flex min-h-screen items-center justify-center bg-background">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold">Organization Sign In</CardTitle>
@@ -73,6 +75,7 @@ export default function OrganizationSignIn() {
         </CardFooter>
       </Card>
     </div>
+    </>
   )
 }
 
