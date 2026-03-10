@@ -80,6 +80,4 @@ test:
 #
 production:
   <<: *default
-  database: galaseason_production
-  username: galaseason
-  password: <%= ENV["GALASEASON_DATABASE_PASSWORD"] %>
+  url: <%= ENV["DATABASE_URL"] %>
