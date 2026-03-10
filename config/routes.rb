@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   end
 
   namespace :dashboard do
-    resources :events, only: [:index]
+    resources :events, only: %i[index new create edit update]
   end
 
   get '/events/:id', to: 'events#show', as: :event

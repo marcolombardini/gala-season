@@ -1,6 +1,6 @@
 # Core Feature Progress
 
-## Status: Phase 14 - Completed
+## Status: Phase 15 - Completed
 
 ## Quick Reference
 - Research: `docs/core/RESEARCH.md`
@@ -359,13 +359,25 @@
 ---
 
 ### Phase 15: Org Dashboard - Event Create/Edit
-**Status:** Not Started
+**Status:** Completed
 
 #### Tasks Completed
-- (none yet)
+- Added `new`, `create`, `edit`, `update` actions to `Dashboard::EventsController` with `event_params` permit
+- Created shared `EventForm.tsx` component with three sections (General Info, Date & Location, Details)
+- Created `dashboard/events/new.tsx` page rendering EventForm for creation
+- Created `dashboard/events/edit.tsx` page rendering EventForm pre-populated with event data
+- Updated `dashboard/events/index.tsx` with "Create Event" button and per-row "Edit" links
+- Updated routes: `resources :events, only: %i[index new create edit update]`
+- Wrote 15 new controller tests (22 total for dashboard events, 137 suite-wide, 467 assertions)
+- Rubocop clean, TypeScript clean
 
 #### Decisions Made
-- (none yet)
+- EventForm uses `useForm` with `transform()` for hashtag parsing (comma-separated string → array)
+- Dress code uses "none" sentinel value in Select, mapped to empty string / null on submit
+- Controller uses `params.expect` (Rails 8 style) with `{ hashtags: [] }` for array params
+- Validation errors redirect back with `inertia: { errors: ... }` pattern (consistent with auth controllers)
+- Other org's events return 404 via scoped `find` (not redirect)
+- Action order: new, edit, create, update (rubocop Rails/ActionOrder)
 
 #### Blockers
 - (none)
@@ -390,6 +402,7 @@
 - Phase 12 completed: Public user profile page at `/u/:username` with ProfilesController, visibility controls, React page with causes/networks/followed orgs/events, 9 tests (99 total, 344 assertions)
 - Phase 13 completed: Attendance & follow toggle actions with AttendancesController + FollowsController, wired RSVP/Follow buttons on event detail + org profile pages, 14 new tests (115 total, 389 assertions)
 - Phase 14 completed: Org dashboard event list with Dashboard::EventsController, ShadCN Table page, auth gating, attendee counts, 7 new tests (122 total, 420 assertions)
+- Phase 15 completed: Org dashboard event create/edit with EventForm component, new/edit pages, Create Event button + Edit links on index, 15 new tests (137 total, 467 assertions)
 
 ---
 
