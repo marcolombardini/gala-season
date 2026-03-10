@@ -1,6 +1,6 @@
 # Core Feature Progress
 
-## Status: Phase 8 - Completed
+## Status: Phase 9 - Completed
 
 ## Quick Reference
 - Research: `docs/core/RESEARCH.md`
@@ -201,13 +201,29 @@
 ---
 
 ### Phase 9: Homepage Frontend
-**Status:** Not Started
+**Status:** Completed
 
 #### Tasks Completed
-- (none yet)
+- Rebuilt `app/frontend/pages/home/index.tsx` with full homepage UI
+- Filter bar: text search, cause select, industry select, month select, city/state inputs, price range inputs, Search + Clear buttons
+- Filters submit as GET params via `router.get('/', params, { preserveState: true })`
+- Event card grid (3-col lg, 2-col md, 1-col sm) using ShadCN Card
+- Cards show: title, org name (linked to `/o/slug`), formatted date, venue/city/state, price, dress code badge
+- Each card links to `/events/:id`
+- Empty state with "No events found" and "Clear filters" button when no matches
+- Enter key submits filters from text inputs
+- TypeScript compiles cleanly, all 72 tests pass (231 assertions)
+- Verified rendering in browser: filter bar, event card, links all correct
 
 #### Decisions Made
-- (none yet)
+- Search button approach (not auto-submit) to avoid server round-trips per keystroke
+- ShadCN Select uses `"all"` sentinel for "no selection" (empty string not supported), stripped before submitting
+- Filter state managed with `useState` initialized from `filters` prop (not `useForm`, which is for POST forms)
+- Date formatted with `toLocaleDateString('en-US', ...)` with `T00:00:00` suffix to avoid timezone offset issues
+- Price formatted as "From $X" / "Free" / "Price TBD"
+- Dress code label: underscores replaced with spaces, title-cased
+- Card hover uses `hover:border-foreground/20` for subtle interaction feedback
+- Org name link inside card uses `stopPropagation` to prevent card navigation
 
 #### Blockers
 - (none)
@@ -310,6 +326,7 @@
 - Phase 6 completed: TypeScript types for all entities, SharedProps with auth state + flash, flash sharing in InertiaController
 - Phase 7 completed: Layout component with conditional nav (anonymous/user/org), ShadCN switch+tabs installed, auth page layout opt-out, SharedProps keys fixed to snake_case
 - Phase 8 completed: HomeController updated with event filtering (8 filter types), 15 tests (62 assertions), rubocop clean
+- Phase 9 completed: Homepage frontend rebuilt with filter bar (8 filter types) and event card grid, verified in browser
 
 ---
 
