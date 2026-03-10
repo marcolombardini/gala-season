@@ -6,15 +6,20 @@ class EventsController < InertiaController
 
     raise ActiveRecord::RecordNotFound unless event.published? || Current.organization == event.organization
 
-    render inertia: 'events/show', props: {
-      event: serialize_event(event),
-      organization: serialize_organization(event.organization),
-      attendee_count: event.attendees.count,
-      is_attending: current_user_attending?(event)
-    }
+    render inertia: 'events/show', props: show_props(event)
   end
 
   private
+
+  def show_props(event)
+    {
+      event: serialize_event(event),
+      organization: serialize_organization(event.organization),
+      attendee_count: event.attendees.count,
+      is_attending: current_user_attending?(event),
+      is_following: current_user_following?(event.organization)
+    }
+  end
 
   def serialize_event(event)
     event.as_json(only: %i[
@@ -36,6 +41,12 @@ class EventsController < InertiaController
     return false unless Current.user
 
     event.attendances.exists?(user: Current.user)
+  end
+
+  def current_user_following?(organization)
+    return false unless Current.user
+
+    Current.user.follows.exists?(organization: organization)
   end
 
   def render_not_found

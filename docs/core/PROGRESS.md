@@ -1,6 +1,6 @@
 # Core Feature Progress
 
-## Status: Phase 12 - Completed
+## Status: Phase 13 - Completed
 
 ## Quick Reference
 - Research: `docs/core/RESEARCH.md`
@@ -307,13 +307,26 @@
 ---
 
 ### Phase 13: Attendance & Follow Actions
-**Status:** Not Started
+**Status:** Completed
 
 #### Tasks Completed
-- (none yet)
+- Created `AttendancesController` with create (POST) and destroy (DELETE) actions, `authenticate_user!` guard
+- Created `FollowsController` with create (POST) and destroy (DELETE) actions, `authenticate_user!` guard
+- Added 4 routes: `POST/DELETE /events/:event_id/attend`, `POST/DELETE /o/:slug/follow`
+- Updated `EventsController#show` to pass `is_following` prop
+- Extracted `show_props` method in EventsController to satisfy rubocop ABC size
+- Wired RSVP toggle button on event detail page (`events/show.tsx`) — shows state-aware button for signed-in users, disabled for anonymous
+- Wired Follow toggle button on event detail page for the hosting org
+- Wired Follow toggle button on org profile page (`organization_profiles/show.tsx`)
+- Wrote 8 attendance controller tests and 6 follow controller tests (14 new tests, 115 total, 389 assertions)
+- Rubocop clean, TypeScript clean
 
 #### Decisions Made
-- (none yet)
+- Used `find_or_create_by` for idempotent attend/follow (no error on duplicate)
+- Used `find_by&.destroy` for unattend/unfollow (no error if record doesn't exist)
+- Used `redirect_back_or_to` (Rails 8 preferred) instead of `redirect_back fallback_location:`
+- Buttons show variant `default` when active (attending/following), `outline` when inactive
+- Anonymous users see disabled buttons (no redirect to sign-in on click)
 
 #### Blockers
 - (none)
@@ -364,6 +377,7 @@
 - Phase 10 completed: Event detail page with EventsController#show, two-column React page, draft visibility, 10 tests (82 total, 278 assertions)
 - Phase 11 completed: Public org profile page at `/o/:slug` with OrganizationProfilesController, React page with causes/industries/events, 8 tests (90 total, 307 assertions)
 - Phase 12 completed: Public user profile page at `/u/:username` with ProfilesController, visibility controls, React page with causes/networks/followed orgs/events, 9 tests (99 total, 344 assertions)
+- Phase 13 completed: Attendance & follow toggle actions with AttendancesController + FollowsController, wired RSVP/Follow buttons on event detail + org profile pages, 14 new tests (115 total, 389 assertions)
 
 ---
 
