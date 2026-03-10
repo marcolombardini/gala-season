@@ -57,6 +57,7 @@ export type DetailOrganization = {
   name: string
   slug: string
   email: string
+  phone: string | null
   website: string | null
   donation_url: string | null
   description: string | null

@@ -27,7 +27,7 @@ class EventsController < InertiaController
 
   def serialize_organization(org)
     org.as_json(only: %i[
-                  id name slug email website donation_url
+                  id name slug email phone website donation_url
                   description primary_cause causes industries
                 ])
   end

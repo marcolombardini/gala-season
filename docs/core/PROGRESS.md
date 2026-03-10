@@ -1,6 +1,6 @@
 # Core Feature Progress
 
-## Status: Phase 10 - Completed
+## Status: Phase 11 - Completed
 
 ## Quick Reference
 - Research: `docs/core/RESEARCH.md`
@@ -259,13 +259,24 @@
 ---
 
 ### Phase 11: Public Organization Profile
-**Status:** Not Started
+**Status:** Completed
 
 #### Tasks Completed
-- (none yet)
+- Created `OrganizationProfilesController#show` with slug lookup, org serialization, published event listing, follower count, is_following flag
+- Added route `get '/o/:slug'` → `organization_profiles#show`
+- Added `phone` to `DetailOrganization` TypeScript type and EventsController org serialization
+- Created `app/frontend/pages/organization_profiles/show.tsx` with org header, contact info, donate button, causes/industries badges, event card grid, follower count, follow placeholder
+- Primary cause highlighted with default badge variant vs secondary for others
+- Wrote 8 controller tests (29 assertions) covering: valid slug, field serialization, published-only events, draft exclusion, follower count, is_following states, non-existent slug redirect
+- All 90 tests passing (307 assertions), rubocop clean, TypeScript clean
+- Verified in browser: org profile renders, homepage org link navigates correctly
 
 #### Decisions Made
-- (none yet)
+- Controller name `OrganizationProfilesController` (not `OrganizationsController`) to match implementation plan and avoid confusion with org auth controllers
+- Reused `serialize_events` pattern from HomeController for event cards
+- Follow button rendered as disabled placeholder (wired in Phase 13)
+- Website displayed with protocol stripped for cleaner display
+- Contact info (website, email, phone) shown in horizontal row below description
 
 #### Blockers
 - (none)
@@ -342,6 +353,7 @@
 - Phase 8 completed: HomeController updated with event filtering (8 filter types), 15 tests (62 assertions), rubocop clean
 - Phase 9 completed: Homepage frontend rebuilt with filter bar (8 filter types) and event card grid, verified in browser
 - Phase 10 completed: Event detail page with EventsController#show, two-column React page, draft visibility, 10 tests (82 total, 278 assertions)
+- Phase 11 completed: Public org profile page at `/o/:slug` with OrganizationProfilesController, React page with causes/industries/events, 8 tests (90 total, 307 assertions)
 
 ---
 
@@ -404,6 +416,13 @@
 - `app/frontend/types/index.ts` — added DetailOrganization type
 - `app/frontend/pages/events/show.tsx` — new (event detail page with two-column layout)
 - `test/controllers/events_controller_test.rb` — new (10 tests, 47 assertions)
+
+- `app/controllers/organization_profiles_controller.rb` — new (public org profile with slug lookup)
+- `config/routes.rb` — added `/o/:slug` route
+- `app/frontend/types/index.ts` — added `phone` to DetailOrganization
+- `app/frontend/pages/organization_profiles/show.tsx` — new (org profile page with causes, industries, events)
+- `app/controllers/events_controller.rb` — added `phone` to org serialization
+- `test/controllers/organization_profiles_controller_test.rb` — new (8 tests, 29 assertions)
 
 ## Architectural Decisions
 (Major technical decisions and rationale)
