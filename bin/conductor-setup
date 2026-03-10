@@ -10,3 +10,7 @@ set -e
 # Install dependencies
 bundle install
 npm install
+
+# Ensure seed data exists (idempotent — safe to run every time)
+bin/rails db:prepare
+bin/rails db:seed

@@ -1,6 +1,6 @@
 # Core Feature Progress
 
-## Status: Phase 9 - Completed
+## Status: Phase 10 - Completed
 
 ## Quick Reference
 - Research: `docs/core/RESEARCH.md`
@@ -231,13 +231,27 @@
 ---
 
 ### Phase 10: Event Detail Page
-**Status:** Not Started
+**Status:** Completed
 
 #### Tasks Completed
-- (none yet)
+- Created `EventsController#show` with full event serialization, org serialization, attendee count, and is_attending flag
+- Added `rescue_from ActiveRecord::RecordNotFound` that redirects to root with alert flash
+- Draft visibility: only owning organization can see drafts, everyone else gets redirected
+- Added route `get '/events/:id', to: 'events#show', as: :event`
+- Added `DetailOrganization` TypeScript type for expanded org shape
+- Created `app/frontend/pages/events/show.tsx` with two-column layout (main + sidebar card)
+- Left column: banner placeholder, title, org link, description, hashtag badges
+- Right column: date, time range, venue/address, dress code badge, price, purchase tickets button, auction/gift badges, attendee count, disabled RSVP + follow placeholders
+- Wrote 10 controller tests (47 assertions): published/draft visibility, attendee count, is_attending, non-existent event
+- All 82 tests passing (278 assertions), rubocop clean, TypeScript clean
+- Verified in browser: homepage card links work, detail page renders correctly
 
 #### Decisions Made
-- (none yet)
+- `rescue_from ActiveRecord::RecordNotFound` redirects to root (no dedicated 404 page — keeps it simple)
+- Time fields come from Rails as ISO strings (`2000-01-01T18:00:00.000Z`), parsed with `new Date()` and formatted with `timeZone: 'UTC'`
+- RSVP and Follow buttons rendered as disabled placeholders (wired in Phase 13)
+- "Back to events" link at top for navigation
+- Rubocop I18n locale text cop disabled inline for the single flash message string
 
 #### Blockers
 - (none)
@@ -327,6 +341,7 @@
 - Phase 7 completed: Layout component with conditional nav (anonymous/user/org), ShadCN switch+tabs installed, auth page layout opt-out, SharedProps keys fixed to snake_case
 - Phase 8 completed: HomeController updated with event filtering (8 filter types), 15 tests (62 assertions), rubocop clean
 - Phase 9 completed: Homepage frontend rebuilt with filter bar (8 filter types) and event card grid, verified in browser
+- Phase 10 completed: Event detail page with EventsController#show, two-column React page, draft visibility, 10 tests (82 total, 278 assertions)
 
 ---
 
@@ -383,6 +398,12 @@
 - `test/models/event_test.rb` — new
 - `test/models/attendance_test.rb` — new
 - `test/models/follow_test.rb` — new
+
+- `app/controllers/events_controller.rb` — new (event detail show action with draft visibility)
+- `config/routes.rb` — added event show route
+- `app/frontend/types/index.ts` — added DetailOrganization type
+- `app/frontend/pages/events/show.tsx` — new (event detail page with two-column layout)
+- `test/controllers/events_controller_test.rb` — new (10 tests, 47 assertions)
 
 ## Architectural Decisions
 (Major technical decisions and rationale)
