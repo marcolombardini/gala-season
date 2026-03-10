@@ -1,6 +1,6 @@
 # Core Feature Progress
 
-## Status: Phase 1 - Not Started
+## Status: Phase 1 - Completed
 
 ## Quick Reference
 - Research: `docs/core/RESEARCH.md`
@@ -11,13 +11,22 @@
 ## Phase Progress
 
 ### Phase 1: Database Migrations
-**Status:** Not Started
+**Status:** Completed
 
 #### Tasks Completed
-- (none yet)
+- Added `bcrypt` gem to Gemfile, ran `bundle install`
+- Created migration for `organizations` table (UUID PK, all fields, unique indexes on slug/email, GIN indexes on industries/causes)
+- Created migration for `users` table (UUID PK, all fields, unique indexes on email/username, GIN indexes on interested_causes/interested_industries)
+- Created migration for `events` table (UUID PK, organization FK, all fields, GIN index on hashtags)
+- Created migration for `attendances` table (UUID PK, user/event FKs, unique compound index)
+- Created migration for `follows` table (UUID PK, user/organization FKs, unique compound index)
+- Ran `bin/rails db:migrate` — all 5 migrations applied successfully
+- Verified `db/schema.rb` — all tables, columns, indexes, and foreign keys correct
 
 #### Decisions Made
-- (none yet)
+- GIN indexes on all 5 array columns (industries, causes, interested_causes, interested_industries, hashtags)
+- dress_code is nullable integer with no default (nil = not specified)
+- status has default: 0, null: false (every event must have a status)
 
 #### Blockers
 - (none)
@@ -222,13 +231,20 @@
 
 ## Session Log
 
-### (Work not yet started)
-- Pending Phase 1 kickoff
+### 2026-03-10
+- Phase 1 completed: All 5 database tables created with proper indexes and foreign keys
+- Added bcrypt gem for password hashing support
 
 ---
 
 ## Files Changed
-(Will be updated as implementation progresses)
+- `Gemfile` — added bcrypt gem
+- `db/migrate/20260310190253_create_organizations.rb` — new
+- `db/migrate/20260310190255_create_users.rb` — new
+- `db/migrate/20260310190258_create_events.rb` — new
+- `db/migrate/20260310190302_create_attendances.rb` — new
+- `db/migrate/20260310190307_create_follows.rb` — new
+- `db/schema.rb` — auto-updated
 
 ## Architectural Decisions
 (Major technical decisions and rationale)
