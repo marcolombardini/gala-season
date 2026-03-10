@@ -1,0 +1,5 @@
+# Example:
+# daily_cleanup:
+#   cron: "0 3 * * *"
+#   class: DailyCleanupJob
+#   queue: default
