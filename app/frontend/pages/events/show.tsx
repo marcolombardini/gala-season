@@ -1,4 +1,4 @@
-import { Link, router, usePage } from '@inertiajs/react'
+import { Link, Head, router, usePage } from '@inertiajs/react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -62,7 +62,9 @@ export default function EventShow({
       : startTime || endTime || null
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8">
+    <>
+      <Head title={event.title} />
+      <div className="mx-auto max-w-7xl px-4 py-8">
       <div className="mb-6">
         <Link
           href="/"
@@ -248,5 +250,6 @@ export default function EventShow({
         </div>
       </div>
     </div>
+    </>
   )
 }
