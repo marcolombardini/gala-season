@@ -52,6 +52,19 @@ export type EventListItem = {
   }
 }
 
+export type DetailOrganization = {
+  id: string
+  name: string
+  slug: string
+  email: string
+  website: string | null
+  donation_url: string | null
+  description: string | null
+  primary_cause: string | null
+  causes: string[]
+  industries: string[]
+}
+
 export type Attendance = {
   id: string
   user_id: string

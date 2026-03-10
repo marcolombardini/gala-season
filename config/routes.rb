@@ -26,5 +26,7 @@ Rails.application.routes.draw do
     post 'sign_up', to: 'registrations#create'
   end
 
+  get '/events/:id', to: 'events#show', as: :event
+
   root 'home#index'
 end
