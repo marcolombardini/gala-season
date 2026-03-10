@@ -83,6 +83,14 @@ export type DetailUser = {
   interested_industries: string[]
 }
 
+export type DashboardEvent = {
+  id: string
+  title: string
+  date: string
+  status: 'draft' | 'published'
+  attendee_count: number
+}
+
 export type Attendance = {
   id: string
   user_id: string

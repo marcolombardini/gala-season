@@ -1,6 +1,6 @@
 # Core Feature Progress
 
-## Status: Phase 13 - Completed
+## Status: Phase 14 - Completed
 
 ## Quick Reference
 - Research: `docs/core/RESEARCH.md`
@@ -334,13 +334,24 @@
 ---
 
 ### Phase 14: Org Dashboard - Event List
-**Status:** Not Started
+**Status:** Completed
 
 #### Tasks Completed
-- (none yet)
+- Created `Dashboard::EventsController#index` with `authenticate_organization!` guard
+- Used `left_joins(:attendances)` + `COUNT` + `GROUP BY` for attendee counts in a single query (no N+1)
+- Added dashboard namespace route: `namespace :dashboard { resources :events, only: [:index] }`
+- Added `DashboardEvent` TypeScript type to `app/frontend/types/index.ts`
+- Created `app/frontend/pages/dashboard/events/index.tsx` with ShadCN Table (title, date, status badge, attendee count)
+- Empty state for orgs with no events
+- Wrote controller + routing tests covering auth gating, org scoping, draft visibility, attendee counts, serialization shape, and route boundaries
+- All 122 tests passing (420 assertions), rubocop clean, TypeScript clean
 
 #### Decisions Made
-- (none yet)
+- Controller inherits from `InertiaController` (consistent with all other controllers)
+- Events ordered by `date: :desc` (newest first) for dashboard relevance
+- Serializes minimal fields: id, title, date, status, attendee_count (no org nesting since it's always the current org)
+- Status badge uses `variant="default"` for published, `variant="secondary"` for draft
+- Create/edit flows stay hidden until Phase 15 ships their actions/pages
 
 #### Blockers
 - (none)
@@ -378,6 +389,7 @@
 - Phase 11 completed: Public org profile page at `/o/:slug` with OrganizationProfilesController, React page with causes/industries/events, 8 tests (90 total, 307 assertions)
 - Phase 12 completed: Public user profile page at `/u/:username` with ProfilesController, visibility controls, React page with causes/networks/followed orgs/events, 9 tests (99 total, 344 assertions)
 - Phase 13 completed: Attendance & follow toggle actions with AttendancesController + FollowsController, wired RSVP/Follow buttons on event detail + org profile pages, 14 new tests (115 total, 389 assertions)
+- Phase 14 completed: Org dashboard event list with Dashboard::EventsController, ShadCN Table page, auth gating, attendee counts, 7 new tests (122 total, 420 assertions)
 
 ---
 
