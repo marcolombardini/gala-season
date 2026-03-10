@@ -24,7 +24,7 @@ group :development, :test do
   gem 'debug', platforms: %i[mri windows], require: 'debug/prelude'
   gem 'dotenv-rails'
   gem 'minitest'
-  gem 'mocha', '~> 2.7'
+  gem 'mocha', '~> 3.0'
   gem 'vcr', '~> 6.3'
   gem 'webmock', '~> 3.24'
 end
