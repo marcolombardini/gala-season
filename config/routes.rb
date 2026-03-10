@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 
   get '/events/:id', to: 'events#show', as: :event
   get '/o/:slug', to: 'organization_profiles#show', as: :organization_profile
+  get '/u/:username', to: 'profiles#show', as: :user_profile
 
   root 'home#index'
 end

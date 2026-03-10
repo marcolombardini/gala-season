@@ -1,6 +1,6 @@
 # Core Feature Progress
 
-## Status: Phase 11 - Completed
+## Status: Phase 12 - Completed
 
 ## Quick Reference
 - Research: `docs/core/RESEARCH.md`
@@ -284,13 +284,22 @@
 ---
 
 ### Phase 12: Public User Profile
-**Status:** Not Started
+**Status:** Completed
 
 #### Tasks Completed
-- (none yet)
+- Created `ProfilesController#show` with username lookup, visibility gate, and conditional field serialization
+- Added route `get '/u/:username'` → `profiles#show`
+- Added `DetailUser` TypeScript type to `app/frontend/types/index.ts`
+- Created `app/frontend/pages/profiles/show.tsx` with avatar placeholder, name/username/Philanthropist badge, bio, city/state, social links, causes/networks badges, followed orgs, attended events
+- Wrote 9 controller tests (36 assertions) covering: valid username, field serialization, visibility=false 404, visibility_full_name hiding, visibility_email hiding, followed orgs, published-only attended events, non-existent username
+- All 99 tests passing (344 assertions), rubocop clean, TypeScript clean
 
 #### Decisions Made
-- (none yet)
+- Controller named `ProfilesController` (not `UserProfilesController`) per implementation plan
+- Visibility gate raises `ActiveRecord::RecordNotFound` (reuses existing rescue_from handler)
+- Name fields set to nil when `visibility_full_name` is false (not omitted — frontend checks for null)
+- Attended events filtered to published + upcoming only (no past events shown)
+- Avatar shows initials when name visible, "?" when hidden
 
 #### Blockers
 - (none)
@@ -354,6 +363,7 @@
 - Phase 9 completed: Homepage frontend rebuilt with filter bar (8 filter types) and event card grid, verified in browser
 - Phase 10 completed: Event detail page with EventsController#show, two-column React page, draft visibility, 10 tests (82 total, 278 assertions)
 - Phase 11 completed: Public org profile page at `/o/:slug` with OrganizationProfilesController, React page with causes/industries/events, 8 tests (90 total, 307 assertions)
+- Phase 12 completed: Public user profile page at `/u/:username` with ProfilesController, visibility controls, React page with causes/networks/followed orgs/events, 9 tests (99 total, 344 assertions)
 
 ---
 
