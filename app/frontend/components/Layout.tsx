@@ -1,5 +1,7 @@
-import type { ReactNode } from 'react'
+import { type ReactNode, useEffect, useRef } from 'react'
 import { Link, usePage, router } from '@inertiajs/react'
+import { toast } from 'sonner'
+import { Toaster } from '@/components/ui/sonner'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import {
@@ -14,9 +16,21 @@ import type { SharedProps } from '@/types'
 
 export default function Layout({ children }: { children: ReactNode }) {
   const { current_user: currentUser, current_organization: currentOrganization, flash } = usePage<SharedProps>().props
+  const flashRef = useRef<string | null>(null)
+
+  useEffect(() => {
+    const flashKey = JSON.stringify(flash)
+    if (flashKey === flashRef.current) return
+    flashRef.current = flashKey
+
+    if (flash.success) toast.success(flash.success)
+    if (flash.alert) toast.error(flash.alert)
+    if (flash.notice) toast.info(flash.notice)
+  }, [flash])
 
   return (
     <div className="min-h-screen bg-background">
+      <Toaster position="top-right" richColors />
       <nav className="border-b border-border/50 bg-background/80 backdrop-blur-md sticky top-0 z-50">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <Link href="/" className="text-xl font-extrabold tracking-tight text-foreground">
@@ -84,6 +98,9 @@ export default function Layout({ children }: { children: ReactNode }) {
                     <DropdownMenuItem asChild>
                       <Link href={`/u/${currentUser.username}`}>Profile</Link>
                     </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link href="/settings">Settings</Link>
+                    </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onSelect={() => router.delete('/users/sign_out')}>
                       Sign Out
@@ -135,22 +152,6 @@ export default function Layout({ children }: { children: ReactNode }) {
           </div>
         </div>
       </nav>
-
-      {flash.success && (
-        <div className="border-b bg-green-50 px-4 py-3 text-center text-sm text-green-800">
-          {flash.success}
-        </div>
-      )}
-      {flash.alert && (
-        <div className="border-b bg-red-50 px-4 py-3 text-center text-sm text-red-800">
-          {flash.alert}
-        </div>
-      )}
-      {flash.notice && (
-        <div className="border-b bg-blue-50 px-4 py-3 text-center text-sm text-blue-800">
-          {flash.notice}
-        </div>
-      )}
 
       <main>{children}</main>
 
