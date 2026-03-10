@@ -39,5 +39,8 @@ Rails.application.routes.draw do
   delete '/o/:slug/follow', to: 'follows#destroy', as: :organization_unfollow
   get '/u/:username', to: 'profiles#show', as: :user_profile
 
+  get '/settings', to: 'settings#show', as: :settings
+  patch '/settings', to: 'settings#update'
+
   root 'home#index'
 end

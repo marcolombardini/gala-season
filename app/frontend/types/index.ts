@@ -83,6 +83,27 @@ export type DetailUser = {
   interested_industries: string[]
 }
 
+export type SettingsUser = {
+  first_name: string
+  last_name: string
+  email: string
+  username: string
+  bio: string | null
+  birthdate: string | null
+  sex: string | null
+  city: string | null
+  state: string | null
+  social_x: string | null
+  social_linkedin: string | null
+  social_instagram: string | null
+  social_facebook: string | null
+  interested_causes: string[]
+  interested_industries: string[]
+  visibility: boolean
+  visibility_full_name: boolean
+  visibility_email: boolean
+}
+
 export type DashboardEvent = {
   id: string
   title: string
