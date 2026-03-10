@@ -1,0 +1,7 @@
+alice_upcoming:
+  user: alice
+  event: upcoming_gala
+
+bob_upcoming:
+  user: bob
+  event: upcoming_gala

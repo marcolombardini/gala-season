@@ -1,0 +1,33 @@
+upcoming_gala:
+  organization: charity_org
+  title: Spring Charity Gala
+  description: Annual spring fundraiser
+  date: <%= 30.days.from_now.to_date %>
+  start_time: "18:00"
+  end_time: "22:00"
+  venue_name: Grand Ballroom
+  city: Nashville
+  state: TN
+  dress_code: 0
+  starting_ticket_price: 150.00
+  status: 1
+
+past_gala:
+  organization: charity_org
+  title: Winter Fundraiser
+  description: Past winter event
+  date: <%= 30.days.ago.to_date %>
+  venue_name: City Hall
+  city: Nashville
+  state: TN
+  status: 1
+
+draft_event:
+  organization: arts_foundation
+  title: Art Auction Night
+  description: Draft art event
+  date: <%= 60.days.from_now.to_date %>
+  venue_name: Art Gallery
+  city: Nashville
+  state: TN
+  status: 0
