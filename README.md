@@ -1,24 +1,63 @@
-# README
+# Gala Season
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Requirements
 
-Things you may want to cover:
+- Ruby 3.4+
+- PostgreSQL
+- Redis
+- Node.js 20+
 
-* Ruby version
+## Mac Setup
 
-* System dependencies
+```bash
+brew install postgresql@17 redis node
+brew services start postgresql@17
+brew services start redis
+```
 
-* Configuration
+Install Ruby 3.4+ via [rbenv](https://github.com/rbenv/rbenv):
 
-* Database creation
+```bash
+brew install rbenv
+rbenv install 3.4.5
+rbenv local 3.4.5
+```
 
-* Database initialization
+Install dependencies and create the database:
 
-* How to run the test suite
+```bash
+bundle install
+npm install
+cp .env.example .env
+bin/rails db:create db:migrate
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+## Development
 
-* Deployment instructions
+```bash
+bin/dev
+```
 
-* ...
+Starts Puma (port 3000), Vite dev server, and Sidekiq.
+
+- App: http://localhost:3000
+- Sidekiq dashboard: http://localhost:3000/sidekiq
+
+## Stack
+
+- **Backend:** Rails 8, PostgreSQL, Sidekiq 8
+- **Frontend:** React, TypeScript, Inertia.js, Tailwind CSS 4, Vite
+- **Cache/Sessions/Jobs:** Redis
+
+## Testing
+
+```bash
+bin/rails test
+```
+
+## Linting
+
+```bash
+bundle exec rubocop
+bundle exec brakeman -q
+```
