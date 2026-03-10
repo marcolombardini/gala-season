@@ -5,8 +5,11 @@ Sidekiq.configure_server do |config|
 
   schedule_file = Rails.root.join('config/sidekiq_schedule.yml')
   if schedule_file.exist?
-    Sidekiq.schedule = YAML.load_file(schedule_file)
-    SidekiqScheduler::Scheduler.instance.reload_schedule!
+    schedule = YAML.load_file(schedule_file)
+    if schedule.is_a?(Hash) && schedule.any?
+      Sidekiq.schedule = schedule
+      SidekiqScheduler::Scheduler.instance.reload_schedule!
+    end
   end
 end
 
