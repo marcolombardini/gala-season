@@ -1,6 +1,6 @@
 # Core Feature Progress
 
-## Status: Phase 5 - Completed
+## Status: Phase 6 - Completed
 
 ## Quick Reference
 - Research: `docs/core/RESEARCH.md`
@@ -129,13 +129,21 @@
 ---
 
 ### Phase 6: TypeScript Types & Shared Props
-**Status:** Not Started
+**Status:** Completed
 
 #### Tasks Completed
-- (none yet)
+- Updated `app/frontend/types/index.ts` with full entity types: User, Organization, Event, EventListItem, Attendance, Follow
+- Updated FlashData to include `success` field
+- Added SharedProps type with currentUser, currentOrganization, and flash
+- Added flash sharing to `InertiaController` via `inertia_share`
+- TypeScript compiles cleanly (`npm run check`)
+- All 58 tests pass (170 assertions)
 
 #### Decisions Made
-- (none yet)
+- `starting_ticket_price` typed as `string | null` (Rails decimals serialize as strings in JSON)
+- `dress_code` typed as `string | null` (Rails enums serialize as string names)
+- `Event.status` uses union type `'draft' | 'published'` for type safety
+- Flash shares `:notice`, `:alert`, and `:success` keys
 
 #### Blockers
 - (none)
@@ -277,10 +285,13 @@
 - Phase 3 completed: Authentication concern created with dual auth, included in ApplicationController, Inertia shared data wired up (40 tests, 100 assertions)
 - Phase 4 completed: Auth controllers and routes for users and organizations (58 total tests, 170 assertions)
 - Phase 5 completed: Four auth React pages created (user sign in/up, org sign in/up), all verified in browser
+- Phase 6 completed: TypeScript types for all entities, SharedProps with auth state + flash, flash sharing in InertiaController
 
 ---
 
 ## Files Changed
+- `app/frontend/types/index.ts` — expanded with User, Organization, Event, EventListItem, Attendance, Follow, SharedProps types
+- `app/controllers/inertia_controller.rb` — added flash to inertia_share
 - `app/frontend/pages/Users/Sessions/New.tsx` — new (user sign in form)
 - `app/frontend/pages/Users/Registrations/New.tsx` — new (user sign up form)
 - `app/frontend/pages/Organizations/Sessions/New.tsx` — new (org sign in form)

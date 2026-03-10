@@ -109,6 +109,11 @@ jobs:
       - name: Install JavaScript dependencies
         run: npm ci
 
+      - name: Build frontend assets for tests
+        env:
+          RAILS_ENV: test
+        run: bundle exec vite build
+
       - name: Run tests
         env:
           RAILS_ENV: test
