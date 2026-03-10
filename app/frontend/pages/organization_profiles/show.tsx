@@ -34,6 +34,7 @@ function formatDressCode(code: string | null): string | null {
   return code.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 }
 
+
 export default function OrganizationProfileShow({
   organization,
   events,
@@ -171,10 +172,11 @@ export default function OrganizationProfileShow({
         {events.length === 0 ? (
           <p className="text-muted-foreground">No upcoming events.</p>
         ) : (
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 stagger-grid">
             {events.map((event) => (
-              <Link key={event.id} href={`/events/${event.id}`}>
-                <Card className="h-full transition-colors hover:border-foreground/20">
+              <Link key={event.id} href={`/events/${event.id}`} className="animate-fade-up">
+                <Card className="h-full transition-all duration-200 hover:shadow-[0_4px_12px_rgba(0,0,0,0.08),0_2px_4px_rgba(0,0,0,0.04)] hover:-translate-y-0.5 pt-0 overflow-hidden">
+                  <div className="h-32 bg-gradient-to-br from-primary/15 to-primary/5" />
                   <CardHeader>
                     <CardTitle className="text-lg">{event.title}</CardTitle>
                     <p className="text-sm text-muted-foreground">

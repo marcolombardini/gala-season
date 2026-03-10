@@ -44,6 +44,7 @@ function formatDressCode(code: string | null): string | null {
   return code.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 }
 
+
 export default function EventShow({
   event,
   organization,
@@ -71,7 +72,7 @@ export default function EventShow({
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         {/* Left column — main content */}
         <div className="lg:col-span-2">
-          <div className="mb-6 h-48 rounded-lg bg-gradient-to-r from-muted to-muted/50" />
+          <div className="mb-6 h-48 rounded-xl bg-gradient-to-br from-primary/15 to-primary/5" />
 
           <h1 className="text-3xl font-bold tracking-tight">{event.title}</h1>
 
@@ -95,7 +96,7 @@ export default function EventShow({
             <div className="mt-6 flex flex-wrap gap-2">
               {event.hashtags.map((tag) => (
                 <Badge key={tag} variant="secondary">
-                  #{tag}
+                  {tag}
                 </Badge>
               ))}
             </div>
@@ -159,7 +160,7 @@ export default function EventShow({
                 <p className="text-sm font-medium text-muted-foreground">
                   Starting at
                 </p>
-                <p className="text-xl font-bold">
+                <p className="text-xl font-bold text-primary">
                   {formatPrice(event.starting_ticket_price)}
                 </p>
               </div>

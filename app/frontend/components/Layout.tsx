@@ -17,9 +17,9 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen bg-background">
-      <nav className="border-b bg-background">
+      <nav className="border-b border-border/50 bg-background/80 backdrop-blur-md sticky top-0 z-50">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <Link href="/" className="text-xl font-bold">
+          <Link href="/" className="text-xl font-extrabold tracking-tight text-foreground">
             Gala Season
           </Link>
 
@@ -154,11 +154,11 @@ export default function Layout({ children }: { children: ReactNode }) {
 
       <main>{children}</main>
 
-      <footer className="border-t bg-muted/50">
+      <footer className="border-t border-border/50 bg-gradient-to-b from-muted/30 to-muted/80">
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             <div>
-              <Link href="/" className="text-lg font-bold">
+              <Link href="/" className="text-lg font-extrabold tracking-tight text-foreground">
                 Gala Season
               </Link>
               <p className="mt-2 text-sm text-muted-foreground">

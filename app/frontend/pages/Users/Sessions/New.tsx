@@ -18,7 +18,7 @@ export default function UserSignIn() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-background via-accent/10 to-primary/5">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold">Sign in to Gala Season</CardTitle>
