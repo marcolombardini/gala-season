@@ -17,7 +17,7 @@ Rails.application.configure do
 
   # Enable caching with Redis.
   config.action_controller.perform_caching = true
-  config.cache_store = :redis_cache_store, { url: "#{ENV.fetch('REDIS_URL', 'redis://localhost:6379')}/2" }
+  config.cache_store = :redis_cache_store, { url: "#{ENV.fetch('REDIS_URL', 'redis://localhost:6379').sub(%r{/\d+\z}, '')}/2" }
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local

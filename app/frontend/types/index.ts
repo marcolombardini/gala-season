@@ -66,6 +66,23 @@ export type DetailOrganization = {
   industries: string[]
 }
 
+export type DetailUser = {
+  id: string
+  username: string
+  first_name: string | null
+  last_name: string | null
+  email: string | null
+  bio: string | null
+  city: string | null
+  state: string | null
+  social_x: string | null
+  social_linkedin: string | null
+  social_instagram: string | null
+  social_facebook: string | null
+  interested_causes: string[]
+  interested_industries: string[]
+}
+
 export type Attendance = {
   id: string
   user_id: string

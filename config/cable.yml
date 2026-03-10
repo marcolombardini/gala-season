@@ -1,6 +1,6 @@
 development:
   adapter: redis
-  url: <%= ENV.fetch("REDIS_URL", "redis://localhost:6379") %>/4
+  url: <%= ENV.fetch("REDIS_URL", "redis://localhost:6379").sub(%r{/\d+\z}, "") %>/4
   channel_prefix: galaseason_development
 
 test:
@@ -8,5 +8,5 @@ test:
 
 production:
   adapter: redis
-  url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/4" } %>
+  url: <%= ENV.fetch("REDIS_URL", "redis://localhost:6379").sub(%r{/\d+\z}, "") %>/4
   channel_prefix: galaseason_production
