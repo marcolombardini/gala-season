@@ -38,6 +38,7 @@ function formatDressCode(code: string | null): string | null {
   return code.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 }
 
+
 function displayName(user: DetailUser): string | null {
   if (user.first_name && user.last_name) {
     return `${user.first_name} ${user.last_name}`
@@ -74,7 +75,7 @@ export default function ProfileShow({
 
       {/* Profile header */}
       <div className="mb-8 flex items-start gap-4">
-        <div className="flex h-[64px] w-[64px] shrink-0 items-center justify-center rounded-full bg-muted text-xl font-semibold">
+        <div className="flex h-[64px] w-[64px] shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary text-xl font-bold">
           {avatarInitials(user)}
         </div>
         <div>
@@ -218,10 +219,11 @@ export default function ProfileShow({
           <Separator className="mb-8" />
           <div>
             <h2 className="mb-6 text-2xl font-bold">Attending Events</h2>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 stagger-grid">
               {attended_events.map((event) => (
-                <Link key={event.id} href={`/events/${event.id}`}>
-                  <Card className="h-full transition-colors hover:border-foreground/20">
+                <Link key={event.id} href={`/events/${event.id}`} className="animate-fade-up">
+                  <Card className="h-full transition-all duration-200 hover:shadow-[0_4px_12px_rgba(0,0,0,0.08),0_2px_4px_rgba(0,0,0,0.04)] hover:-translate-y-0.5 pt-0 overflow-hidden">
+                    <div className="h-32 bg-gradient-to-br from-primary/15 to-primary/5" />
                     <CardHeader>
                       <CardTitle className="text-lg">{event.title}</CardTitle>
                       <p className="text-sm text-muted-foreground">

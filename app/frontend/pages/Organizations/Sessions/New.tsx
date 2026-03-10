@@ -20,7 +20,7 @@ export default function OrganizationSignIn() {
   return (
     <>
       <Head title="Organization Sign In" />
-      <div className="flex min-h-screen items-center justify-center bg-background">
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-background via-accent/10 to-primary/5">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold">Organization Sign In</CardTitle>
