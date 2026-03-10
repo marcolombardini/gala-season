@@ -1,9 +1,9 @@
-import { Link } from '@inertiajs/react'
+import { Link, Head, router, usePage } from '@inertiajs/react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
-import type { DetailOrganization, EventListItem } from '@/types'
+import type { DetailOrganization, EventListItem, SharedProps } from '@/types'
 
 type OrganizationProfileProps = {
   organization: DetailOrganization
@@ -39,9 +39,14 @@ export default function OrganizationProfileShow({
   organization,
   events,
   follower_count,
+  is_following,
 }: OrganizationProfileProps) {
+  const { current_user } = usePage<SharedProps>().props
+
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8">
+    <>
+      <Head title={organization.name} />
+      <div className="mx-auto max-w-7xl px-4 py-8">
       <div className="mb-6">
         <Link
           href="/"
@@ -107,10 +112,24 @@ export default function OrganizationProfileShow({
             </Button>
           )}
 
-          {/* Placeholder — wired in Phase 13 */}
-          <Button variant="outline" disabled>
-            Follow
-          </Button>
+          {current_user ? (
+            <Button
+              variant={is_following ? 'default' : 'outline'}
+              onClick={() => {
+                if (is_following) {
+                  router.delete(`/o/${organization.slug}/follow`, { preserveScroll: true })
+                } else {
+                  router.post(`/o/${organization.slug}/follow`, {}, { preserveScroll: true })
+                }
+              }}
+            >
+              {is_following ? 'Following' : 'Follow'}
+            </Button>
+          ) : (
+            <Button variant="outline" disabled>
+              Follow
+            </Button>
+          )}
 
           <span className="text-sm text-muted-foreground">
             <span className="font-semibold text-foreground">
@@ -210,5 +229,6 @@ export default function OrganizationProfileShow({
         )}
       </div>
     </div>
+    </>
   )
 }

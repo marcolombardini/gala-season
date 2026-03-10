@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { router, Link } from '@inertiajs/react'
+import { router, Link, Head } from '@inertiajs/react'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -78,7 +78,9 @@ export default function Home({ events, filters, causes, industries }: HomeProps)
   const hasActiveFilters = Object.values(filterState).some((v) => v && v !== 'all')
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <>
+      <Head title="Upcoming Galas" />
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <h1 className="text-3xl font-bold tracking-tight mb-6">Upcoming Galas</h1>
 
       {/* Filter Bar */}
@@ -215,5 +217,6 @@ export default function Home({ events, filters, causes, industries }: HomeProps)
         </div>
       )}
     </div>
+    </>
   )
 }

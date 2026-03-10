@@ -26,8 +26,17 @@ Rails.application.routes.draw do
     post 'sign_up', to: 'registrations#create'
   end
 
+  namespace :dashboard do
+    resources :events, only: [:index]
+  end
+
   get '/events/:id', to: 'events#show', as: :event
+  post '/events/:event_id/attend', to: 'attendances#create', as: :event_attend
+  delete '/events/:event_id/attend', to: 'attendances#destroy', as: :event_unattend
+
   get '/o/:slug', to: 'organization_profiles#show', as: :organization_profile
+  post '/o/:slug/follow', to: 'follows#create', as: :organization_follow
+  delete '/o/:slug/follow', to: 'follows#destroy', as: :organization_unfollow
   get '/u/:username', to: 'profiles#show', as: :user_profile
 
   root 'home#index'

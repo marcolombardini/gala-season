@@ -1,15 +1,16 @@
-import { Link } from '@inertiajs/react'
+import { Link, Head, router, usePage } from '@inertiajs/react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
-import type { Event, DetailOrganization } from '@/types'
+import type { Event, DetailOrganization, SharedProps } from '@/types'
 
 type EventShowProps = {
   event: Event
   organization: DetailOrganization
   attendee_count: number
   is_attending: boolean
+  is_following: boolean
 }
 
 function formatDate(dateStr: string): string {
@@ -49,7 +50,10 @@ export default function EventShow({
   event,
   organization,
   attendee_count,
+  is_attending,
+  is_following,
 }: EventShowProps) {
+  const { current_user } = usePage<SharedProps>().props
   const dressCode = formatDressCode(event.dress_code)
   const startTime = formatTime(event.start_time)
   const endTime = formatTime(event.end_time)
@@ -59,7 +63,9 @@ export default function EventShow({
       : startTime || endTime || null
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8">
+    <>
+      <Head title={event.title} />
+      <div className="mx-auto max-w-7xl px-4 py-8">
       <div className="mb-6">
         <Link
           href="/"
@@ -201,17 +207,50 @@ export default function EventShow({
                 </p>
               </div>
 
-              {/* Placeholder buttons — wired in Phase 13 */}
-              <Button variant="outline" className="w-full" disabled>
-                RSVP
-              </Button>
-              <Button variant="outline" className="w-full" disabled>
-                Follow {organization.name}
-              </Button>
+              {current_user ? (
+                <Button
+                  variant={is_attending ? 'default' : 'outline'}
+                  className="w-full"
+                  onClick={() => {
+                    if (is_attending) {
+                      router.delete(`/events/${event.id}/attend`, { preserveScroll: true })
+                    } else {
+                      router.post(`/events/${event.id}/attend`, {}, { preserveScroll: true })
+                    }
+                  }}
+                >
+                  {is_attending ? 'Cancel RSVP' : 'RSVP'}
+                </Button>
+              ) : (
+                <Button variant="outline" className="w-full" disabled>
+                  RSVP
+                </Button>
+              )}
+
+              {current_user ? (
+                <Button
+                  variant={is_following ? 'default' : 'outline'}
+                  className="w-full"
+                  onClick={() => {
+                    if (is_following) {
+                      router.delete(`/o/${organization.slug}/follow`, { preserveScroll: true })
+                    } else {
+                      router.post(`/o/${organization.slug}/follow`, {}, { preserveScroll: true })
+                    }
+                  }}
+                >
+                  {is_following ? `Following ${organization.name}` : `Follow ${organization.name}`}
+                </Button>
+              ) : (
+                <Button variant="outline" className="w-full" disabled>
+                  Follow {organization.name}
+                </Button>
+              )}
             </CardContent>
           </Card>
         </div>
       </div>
     </div>
+    </>
   )
 }
