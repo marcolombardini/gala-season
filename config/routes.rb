@@ -10,5 +10,21 @@ Rails.application.routes.draw do
 
   get 'up' => 'rails/health#show', as: :rails_health_check
 
+  namespace :users do
+    get 'sign_in', to: 'sessions#new'
+    post 'sign_in', to: 'sessions#create'
+    delete 'sign_out', to: 'sessions#destroy'
+    get 'sign_up', to: 'registrations#new'
+    post 'sign_up', to: 'registrations#create'
+  end
+
+  namespace :organizations do
+    get 'sign_in', to: 'sessions#new'
+    post 'sign_in', to: 'sessions#create'
+    delete 'sign_out', to: 'sessions#destroy'
+    get 'sign_up', to: 'registrations#new'
+    post 'sign_up', to: 'registrations#create'
+  end
+
   root 'home#index'
 end
