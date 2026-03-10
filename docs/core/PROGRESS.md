@@ -1,6 +1,6 @@
 # Core Feature Progress
 
-## Status: Phase 4 - Completed
+## Status: Phase 5 - Completed
 
 ## Quick Reference
 - Research: `docs/core/RESEARCH.md`
@@ -105,13 +105,23 @@
 ---
 
 ### Phase 5: Auth Frontend Pages
-**Status:** Not Started
+**Status:** Completed
 
 #### Tasks Completed
-- (none yet)
+- Created `app/frontend/pages/Users/Sessions/New.tsx` — user sign in (email + password), error display, links to sign up and org sign in
+- Created `app/frontend/pages/Users/Registrations/New.tsx` — user sign up (first_name, last_name, email, username, password, password_confirmation), inline field errors
+- Created `app/frontend/pages/Organizations/Sessions/New.tsx` — org sign in (email + password), error display, links to sign up and user sign in
+- Created `app/frontend/pages/Organizations/Registrations/New.tsx` — org sign up (name, email, password, password_confirmation), inline field errors
+- All pages use ShadCN Card/Input/Label/Button, Inertia `useForm`, centered card layout
+- TypeScript compiles cleanly (`npm run check`)
+- All 58 tests pass (170 assertions)
+- All four pages verified rendering and form submission via agent-browser
 
 #### Decisions Made
-- (none yet)
+- Session errors use `usePage().props.errors` with `Record<string, string>` type (since `errors.base` isn't part of form data shape)
+- Registration forms keep flat client-side field keys, then transform payloads to `user` / `organization` on submit so `useForm` error keys match Rails model errors
+- Consistent centered card design matching existing home page pattern
+- Links between user/org auth forms for easy switching
 
 #### Blockers
 - (none)
@@ -266,10 +276,15 @@
 - Phase 2 completed: All 6 models created with associations, validations, enums, scopes, and tests (35 tests, 92 assertions)
 - Phase 3 completed: Authentication concern created with dual auth, included in ApplicationController, Inertia shared data wired up (40 tests, 100 assertions)
 - Phase 4 completed: Auth controllers and routes for users and organizations (58 total tests, 170 assertions)
+- Phase 5 completed: Four auth React pages created (user sign in/up, org sign in/up), all verified in browser
 
 ---
 
 ## Files Changed
+- `app/frontend/pages/Users/Sessions/New.tsx` — new (user sign in form)
+- `app/frontend/pages/Users/Registrations/New.tsx` — new (user sign up form)
+- `app/frontend/pages/Organizations/Sessions/New.tsx` — new (org sign in form)
+- `app/frontend/pages/Organizations/Registrations/New.tsx` — new (org sign up form)
 - `app/controllers/users/sessions_controller.rb` — new (user sign in/out)
 - `app/controllers/users/registrations_controller.rb` — new (user sign up)
 - `app/controllers/organizations/sessions_controller.rb` — new (org sign in/out)
