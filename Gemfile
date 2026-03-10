@@ -4,6 +4,7 @@ gem 'bootsnap', require: false
 gem 'image_processing', '~> 1.2'
 gem 'pg'
 gem 'puma', '>= 5.0'
+gem 'thruster', require: false
 gem 'rails', '~> 8.1'
 gem 'tzinfo-data', platforms: %i[windows jruby]
 
