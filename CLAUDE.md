@@ -27,6 +27,11 @@ bundle exec brakeman            # Run security analysis
 npm run check                   # TypeScript type checking
 ```
 
+**Important:** `bin/rails test` crashes with a system-level Ruby memory error when run with parallel workers. Always disable parallelization:
+```bash
+PARALLEL_WORKERS=1 bin/rails test
+```
+
 ### Rails Commands
 
 ```bash

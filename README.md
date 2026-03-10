@@ -49,6 +49,22 @@ Starts Puma (port 3000), Vite dev server, and Sidekiq.
 - **Frontend:** React, TypeScript, Inertia.js, Tailwind CSS 4, Vite
 - **Cache/Sessions/Jobs:** Redis
 
+## Seed Data
+
+Populate the database with sample organizations, users, and events for testing:
+
+```bash
+bin/rails db:seed
+```
+
+Safe to run multiple times. To clear all data and re-seed from scratch:
+
+```bash
+SEED_RESET=1 bin/rails db:seed
+```
+
+All seed accounts use password `password`.
+
 ## Testing
 
 ```bash
