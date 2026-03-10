@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import type { FormEvent } from 'react'
+import type { FormEvent, ReactNode } from 'react'
 
 export default function UserSignIn() {
   const { errors } = usePage<{ errors: Record<string, string> }>().props
@@ -75,3 +75,5 @@ export default function UserSignIn() {
     </div>
   )
 }
+
+UserSignIn.layout = (page: ReactNode) => page

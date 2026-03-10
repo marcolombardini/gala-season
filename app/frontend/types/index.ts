@@ -71,7 +71,7 @@ export type FlashData = {
 }
 
 export type SharedProps = {
-  currentUser: User | null
-  currentOrganization: Organization | null
+  current_user: User | null
+  current_organization: Organization | null
   flash: FlashData
 }

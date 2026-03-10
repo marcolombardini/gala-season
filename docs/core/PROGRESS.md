@@ -1,6 +1,6 @@
 # Core Feature Progress
 
-## Status: Phase 6 - Completed
+## Status: Phase 7 - Completed
 
 ## Quick Reference
 - Research: `docs/core/RESEARCH.md`
@@ -151,13 +151,26 @@
 ---
 
 ### Phase 7: Layout Component & Navigation
-**Status:** Not Started
+**Status:** Completed
 
 #### Tasks Completed
-- (none yet)
+- Installed ShadCN `switch` and `tabs` components for later phases
+- Created `app/frontend/components/Layout.tsx` with conditional nav for 3 auth states (anonymous, user, org)
+- Wired default layout in `app/frontend/entrypoints/inertia.tsx` using `page.default.layout ||=`
+- Added layout opt-out to all 4 auth pages via `Component.layout = (page) => page`
+- Updated home page to remove redundant `min-h-screen`/`bg-background` wrapper
+- Fixed SharedProps type keys to match Rails snake_case (`current_user`, `current_organization`)
+- Flash message banners (success/alert/notice) rendered below nav
+- All 58 tests pass (170 assertions), TypeScript clean
+- Verified all 3 nav states + auth page layout opt-out in browser
 
 #### Decisions Made
-- (none yet)
+- SharedProps keys use snake_case to match Rails `as_json` output (`current_user` not `currentUser`)
+- Layout destructures with rename: `const { current_user: currentUser } = usePage<SharedProps>().props`
+- Sign out uses `router.delete()` for proper DELETE request
+- DropdownMenuItem uses `asChild` with Inertia `Link` for client-side navigation
+- Avatar fallback: user initials (first+last), org first letter
+- Flash banners are simple colored divs (green/red/blue) below nav, no auto-dismiss
 
 #### Blockers
 - (none)
@@ -286,11 +299,19 @@
 - Phase 4 completed: Auth controllers and routes for users and organizations (58 total tests, 170 assertions)
 - Phase 5 completed: Four auth React pages created (user sign in/up, org sign in/up), all verified in browser
 - Phase 6 completed: TypeScript types for all entities, SharedProps with auth state + flash, flash sharing in InertiaController
+- Phase 7 completed: Layout component with conditional nav (anonymous/user/org), ShadCN switch+tabs installed, auth page layout opt-out, SharedProps keys fixed to snake_case
 
 ---
 
 ## Files Changed
-- `app/frontend/types/index.ts` — expanded with User, Organization, Event, EventListItem, Attendance, Follow, SharedProps types
+- `app/frontend/components/Layout.tsx` — new (app shell with conditional nav)
+- `app/frontend/entrypoints/inertia.tsx` — wired default layout
+- `app/frontend/pages/Users/Sessions/New.tsx` — added layout opt-out
+- `app/frontend/pages/Users/Registrations/New.tsx` — added layout opt-out
+- `app/frontend/pages/Organizations/Sessions/New.tsx` — added layout opt-out
+- `app/frontend/pages/Organizations/Registrations/New.tsx` — added layout opt-out
+- `app/frontend/pages/home/index.tsx` — removed redundant wrapper styles
+- `app/frontend/types/index.ts` — fixed SharedProps to use snake_case keys; expanded with User, Organization, Event, EventListItem, Attendance, Follow, SharedProps types
 - `app/controllers/inertia_controller.rb` — added flash to inertia_share
 - `app/frontend/pages/Users/Sessions/New.tsx` — new (user sign in form)
 - `app/frontend/pages/Users/Registrations/New.tsx` — new (user sign up form)

@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
+gem 'bcrypt', '~> 3.1'
 gem 'bootsnap', require: false
 gem 'image_processing', '~> 1.2'
-gem 'bcrypt', '~> 3.1'
 gem 'pg'
 gem 'puma', '>= 5.0'
-gem 'thruster', require: false
 gem 'rails', '~> 8.1'
+gem 'thruster', require: false
 gem 'tzinfo-data', platforms: %i[windows jruby]
 
 # Frontend
