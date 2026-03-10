@@ -1,3 +1,4 @@
+import "./application.css"
 import { createInertiaApp, type ResolvedComponent } from '@inertiajs/react'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
