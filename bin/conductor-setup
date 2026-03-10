@@ -1,6 +1,16 @@
 #!/bin/bash
 set -e
 
+# Initialize Homebrew (provides node/npm and rbenv)
+if [ -x /opt/homebrew/bin/brew ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+# Initialize rbenv (provides correct Ruby version)
+if command -v rbenv &> /dev/null; then
+  eval "$(rbenv init -)"
+fi
+
 # Symlink .env from repo root (where secrets live, outside worktrees)
 [ -f "$CONDUCTOR_ROOT_PATH/.env" ] && ln -sf "$CONDUCTOR_ROOT_PATH/.env" .env
 
