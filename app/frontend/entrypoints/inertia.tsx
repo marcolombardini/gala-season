@@ -5,10 +5,7 @@ import { createRoot } from 'react-dom/client'
 import Layout from '@/components/Layout'
 
 void createInertiaApp({
-  // Set default page title
-  // see https://inertia-rails.dev/guide/title-and-meta
-  //
-  // title: title => title ? `${title} - App` : 'App',
+  title: title => title ? `${title} — Gala Season` : 'Gala Season',
 
   // Disable progress bar
   //
